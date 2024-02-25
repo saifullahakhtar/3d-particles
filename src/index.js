@@ -41,7 +41,7 @@ const cube = new THREE.Mesh(geometry, material);
 OrbitControls
 ------------------------------*/
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.enabled = false;
+// controls.enabled = false;
 
 /*------------------------------
 Helpers
@@ -54,16 +54,16 @@ Helpers
 /*------------------------------
 Model
 ------------------------------*/
-const piler1 = new Model({
+const model1 = new Model({
   name: "plier",
-  file: "./models/dressing-plier.glb",
-  color1: "#02123a",
-  color2: "#6065c1",
-  background: "#02123a",
+  file: "./models/360-text.glb",
+  color1: "#67aadf",
+  color2: "red",
+  background: "#000000",
   scene: scene,
   placeOnLoad: true,
 });
-const piler2 = new Model({
+const model2 = new Model({
   name: "plier",
   file: "./models/dressing-plier.glb",
   color1: "blue",
@@ -77,12 +77,12 @@ Controllers
 ------------------------------*/
 const buttons = document.querySelectorAll(".button");
 buttons[0].addEventListener("click", () => {
-  piler1.add();
-  piler2.remove();
+  model1.add();
+  model2.remove();
 });
 buttons[1].addEventListener("click", () => {
-  piler1.remove();
-  piler2.add();
+  model1.remove();
+  model2.add();
 });
 
 /*------------------------------
@@ -97,11 +97,11 @@ const animate = function () {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 
-  if (piler1.isActive) {
-    piler1.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  if (model1.isActive) {
+    model1.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
   }
-  if (piler2.isActive) {
-    piler2.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
+  if (model2.isActive) {
+    model2.particlesMaterial.uniforms.uTime.value = clock.getElapsedTime();
   }
 };
 animate();
@@ -125,8 +125,8 @@ function onMouseMove(e) {
 
   gsap.to(scene.rotation, {
     y: gsap.utils.mapRange(0, window.innerWidth, 0.2, -0.2, x),
-    x: gsap.utils.mapRange(0, window.innerWidth, 0.2, -0.2, y)
-  })
+    x: gsap.utils.mapRange(0, window.innerWidth, 0.2, -0.2, y),
+  });
 }
 
 window.addEventListener("mousemove", onMouseMove);
